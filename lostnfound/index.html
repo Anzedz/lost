@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ACT Lost and Found</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--surface:#f3f6fc;--ink:#0a1f44;--mute:#4f5f7a;--line:#d3dcec;--brand:#0b3d91;--brand-ink:#fff;--hero:#0b3d91;--tag:#ffd100;--tag-ink:#0a1f44;--ok:#1d7a4d;--warn:#a85a00;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071327;--surface:#0e2142;--ink:#f2f6ff;--mute:#9fb0d0;--line:#243a63;--brand:#8ab4ff;--brand-ink:#071327;--ok:#5fd397;--warn:#f0a94a}}
+:root[data-theme="dark"]{--bg:#071327;--surface:#0e2142;--ink:#f2f6ff;--mute:#9fb0d0;--line:#243a63;--brand:#8ab4ff;--brand-ink:#071327;--ok:#5fd397;--warn:#f0a94a}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "Public Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","Public Sans",sans-serif;line-height:1.1;margin:0}
+a{color:inherit}.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:800 20px "Bricolage Grotesque",sans-serif;text-decoration:none}.logo span{background:var(--tag);color:var(--tag-ink);padding:1px 8px;border-radius:6px;margin-right:6px}
+nav{display:flex;gap:18px;font-size:15px;font-weight:500}nav a{text-decoration:none;color:var(--mute)}nav a:hover{color:var(--ink)}
+@media(max-width:640px){nav a:not(.cta-n){display:none}}
+.cta-n{background:var(--brand);color:var(--brand-ink)!important;padding:6px 14px;border-radius:99px}
+.herob{background:var(--hero);color:#fff;border-bottom:6px solid var(--tag)}.hero{padding:56px 20px 48px}
+.hero h1{font-size:clamp(38px,7vw,68px);font-weight:800;letter-spacing:-.02em;max-width:12ch}
+.hero p{max-width:52ch;color:#d6e2fa;font-size:18px;margin:16px 0 28px}
+.finder{display:flex;gap:0;background:#fff;border:3px solid var(--tag);border-radius:14px;max-width:640px;overflow:hidden}
+.finder input{flex:1;border:0;background:transparent;color:#0a1f44;font:inherit;font-size:17px;padding:16px 18px;min-width:0}
+.finder button{border:0;background:var(--tag);color:var(--tag-ink);font:700 16px "Public Sans",sans-serif;padding:0 22px;cursor:pointer}
+.sub{margin-top:14px;font-size:14px;color:#d6e2fa}.sub a{color:var(--tag);font-weight:600}
+section{padding:44px 0}h2{font-size:clamp(26px,4vw,36px);font-weight:700;margin-bottom:8px}
+.lead{color:var(--mute);margin:0 0 24px;max-width:60ch}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+.step{border-top:3px solid var(--tag);padding-top:12px}.step h3{font-size:20px;margin-bottom:4px}.step p{margin:0;color:var(--mute);font-size:15px}
+.step::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--brand);color:var(--brand-ink);font-weight:700;font-size:14px;margin-bottom:8px}
+@media(max-width:700px){.steps{grid-template-columns:1fr}}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:6px 14px;font:500 14px "Public Sans",sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+select{font:inherit;font-size:14px;padding:7px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
+.count{font-size:14px;color:var(--mute);margin:6px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:6px 6px 14px 14px;padding:0 0 14px;text-align:left;cursor:pointer;font:inherit;color:inherit;overflow:hidden}
+.card:hover{border-color:var(--brand)}
+.photo{height:120px;display:grid;place-items:center;font-size:48px;background:var(--c);position:relative}
+.photo::after{content:"";position:absolute;top:10px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line)}
+.card h3{font-size:18px;padding:12px 14px 2px}.meta{padding:0 14px;font-size:13.5px;color:var(--mute)}
+.badge{display:inline-block;margin:10px 14px 0;font-size:12.5px;font-weight:600;padding:2px 10px;border-radius:99px;border:1.5px solid currentColor}
+.b-office{color:var(--ok)}.b-finder{color:var(--warn)}
+.empty{grid-column:1/-1;border:2px dashed var(--line);border-radius:14px;padding:36px;text-align:center;color:var(--mute)}
+.empty a{color:var(--brand);font-weight:600}
+.forms{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:800px){.forms{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.panel h3{font-size:22px;margin-bottom:4px}.panel>p{margin:0 0 16px;color:var(--mute);font-size:15px}
+label{display:block;font-size:14px;font-weight:600;margin:12px 0 4px}.opt{font-weight:400;color:var(--mute)}
+input,textarea,.panel select{width:100%;font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea{min-height:84px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{margin-top:16px;border:0;border-radius:10px;padding:12px 18px;font:700 15px "Public Sans",sans-serif;cursor:pointer;background:var(--brand);color:var(--brand-ink);width:100%}
+.btn.tag{background:var(--tag);color:var(--tag-ink)}
+.note{font-size:13px;color:var(--mute);margin:8px 0 0}
+.err{color:#c0392b;font-size:13px;margin:6px 0 0;min-height:1em}
+.office{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:800px){.office{grid-template-columns:1fr}}
+dl{margin:0}dt{font-weight:600;margin-top:12px}dd{margin:0;color:var(--mute)}
+details{border-bottom:1px solid var(--line);padding:12px 0}summary{cursor:pointer;font-weight:600}details p{margin:8px 0 0;color:var(--mute)}
+footer{border-top:1px solid var(--line);padding:24px 0;color:var(--mute);font-size:14px}
+dialog{border:0;border-radius:16px;padding:0;max-width:480px;width:calc(100% - 32px);background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.55)}.dlg{padding:24px}.x{float:right;border:0;background:none;color:var(--mute);font-size:26px;cursor:pointer;line-height:1}
+.hid{background:var(--bg);border:1.5px dashed var(--line);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--mute);margin:12px 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:10px;font-size:14px;display:none;z-index:20;max-width:90%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+<a class="logo" href="#top"><span>ACT</span>Lost and Found</a>
+<nav><a href="#how">How it works</a><a href="#found">Found items</a><a href="#office">Office</a><a class="cta-n" href="#report">Report an item</a></nav>
+</div></header>
+
+<main id="top">
+<div class="herob"><div class="wrap hero">
+<h1>Lost something on campus?</h1>
+<p>Search items the office is holding. Can’t find yours? Tell us what you lost and we’ll look for it.</p>
+<div class="finder" role="search"><input id="q" type="search" placeholder="Try “black umbrella” or “ID”" aria-label="Search found items"><button id="go">Search</button></div>
+<div class="sub">Found something instead? <a href="#report">Report a found item</a></div>
+</div></div>
+
+<section id="how"><div class="wrap">
+<h2>How claiming works</h2><p class="lead">No account needed. Items are handed over in person so nobody can claim something that isn’t theirs.</p>
+<div class="steps">
+<div class="step"><h3>Find your item</h3><p>Browse or search the list below. Private details like serial numbers are hidden on purpose.</p></div>
+<div class="step"><h3>Send a claim</h3><p>Describe what only the owner would know, such as the lock screen, what’s inside, or marks on it.</p></div>
+<div class="step"><h3>Pick it up</h3><p>Visit the office with a valid school ID. Staff match your answers and hand it over.</p></div>
+</div></div></section>
+
+<section id="found" style="padding-top:8px"><div class="wrap">
+<h2>Found items</h2><p class="lead">Updated by the office whenever an item comes in.</p>
+<div class="filters"><div class="chips" id="chips" role="group" aria-label="Category"></div></div>
+<div class="filters">
+<select id="loc" aria-label="Where it was found"><option value="">All locations</option></select>
+<select id="when" aria-label="When it was found"><option value="">Any date</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select>
+<select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option></select>
+</div>
+<div class="count" id="count" aria-live="polite"></div>
+<div class="grid" id="grid"></div>
+</div></section>
+
+<section id="report"><div class="wrap">
+<h2>Report an item</h2><p class="lead">These forms open an email to the lost-and-found office. Nothing is posted on the site until staff add it.</p>
+<div class="forms">
+<div class="panel"><h3>I lost something</h3><p>The office will contact you if a match turns up.</p>
+<label for="l-item">What did you lose?</label><input id="l-item" placeholder="e.g., Blue Hydro Flask bottle">
+<div class="row"><div><label for="l-cat">Category</label><select id="l-cat"></select></div><div><label for="l-date">Date lost</label><input id="l-date" type="date"></div></div>
+<label for="l-loc">Last seen where?</label><input id="l-loc" placeholder="e.g., Library, 2nd floor">
+<label for="l-desc">Description <span class="opt">(color, brand, marks)</span></label><textarea id="l-desc"></textarea>
+<div class="row"><div><label for="l-name">Your name</label><input id="l-name"></div><div><label for="l-contact">Phone or email</label><input id="l-contact"></div></div>
+<div class="err" id="l-err" role="alert"></div>
+<button class="btn" id="l-send">Email the office</button></div>
+
+<div class="panel"><h3>I found something</h3><p>Please hand it to the office if you can.</p>
+<label for="f-item">What did you find?</label><input id="f-item" placeholder="e.g., Black wallet">
+<div class="row"><div><label for="f-cat">Category</label><select id="f-cat"></select></div><div><label for="f-date">Date found</label><input id="f-date" type="date"></div></div>
+<label for="f-loc">Found where?</label><input id="f-loc" placeholder="e.g., Canteen">
+<label for="f-where">Where is it now?</label><select id="f-where"><option>I will bring it to the office</option><option>I still have it</option><option>I left it with a guard or teacher</option></select>
+<label for="f-desc">Description <span class="opt">(skip serial numbers and ID names)</span></label><textarea id="f-desc"></textarea>
+<div class="row"><div><label for="f-name">Your name <span class="opt">(optional)</span></label><input id="f-name"></div><div><label for="f-contact">Phone or email <span class="opt">(optional)</span></label><input id="f-contact"></div></div>
+<div class="err" id="f-err" role="alert"></div>
+<button class="btn tag" id="f-send">Email the office</button></div>
+</div></div></section>
+
+<section id="office"><div class="wrap">
+<h2>Visit the office</h2>
+<div class="office">
+<div class="panel"><dl>
+<dt>Location</dt><dd>Lost and Found Office, Student Affairs, Ground Floor (edit to match your campus)</dd>
+<dt>Hours</dt><dd>Monday to Friday, 8:00 AM to 5:00 PM<br>Closed on weekends and holidays</dd>
+<dt>Contact</dt><dd>lostandfound@act.edu.ph<br>(032) 000 0000</dd>
+<dt>Bring</dt><dd>A valid school ID or government ID</dd></dl></div>
+<div class="panel"><h3 style="font-size:20px;margin-bottom:6px">Questions</h3>
+<details><summary>How long do you keep items?</summary><p>Unclaimed items are kept for 60 days, then donated or disposed of.</p></details>
+<details><summary>Can someone pick up for me?</summary><p>Yes, with a signed note from you and a copy of your ID.</p></details>
+<details><summary>Why can’t I see all the details?</summary><p>Serial numbers, names on IDs, and contents are hidden so only the real owner can describe them.</p></details>
+<details><summary>My item isn’t listed.</summary><p>It may not be logged yet. Send a lost-item report and check back in a few days.</p></details></div>
+</div></div></section>
+</main>
+<footer><div class="wrap">ACT Lost and Found. Items are returned in person only, with valid ID.</div></footer>
+
+<dialog id="dlg"><div class="dlg" id="dlgBody"></div></dialog>
+<div class="toast" id="toast"></div>
+
+<script>
+/* OFFICE: edit this section. Add or remove items below; no database needed. */
+var OFFICE_EMAIL="lostandfound@act.edu.ph";
+var TODAY=new Date("2026-10-19");
+var CATS={"Phones and gadgets":["📱","#dbe7ff"],"Bags":["🎒","#fff1b3"],"IDs and cards":["🪪","#dbe7ff"],"Wallets":["👛","#fff1b3"],"Keys":["🔑","#dbe7ff"],"Clothing":["🧥","#fff1b3"],"Books and supplies":["📚","#dbe7ff"],"Other":["📦","#fff1b3"]};
+var ITEMS=[
+{id:"LF-0042",name:"Black umbrella",cat:"Other",loc:"Library",date:"2026-10-17",at:"office",desc:"Large folding umbrella, black canopy."},
+{id:"LF-0041",name:"Smartphone with clear case",cat:"Phones and gadgets",loc:"Canteen",date:"2026-10-16",at:"office",desc:"Phone with a clear case, found on a table.",hide:"Brand, lock screen, and case contents"},
+{id:"LF-0040",name:"Blue backpack",cat:"Bags",loc:"Gym",date:"2026-10-15",at:"office",desc:"Navy blue backpack with a front zipper pocket.",hide:"Everything inside the bag"},
+{id:"LF-0039",name:"Student ID card",cat:"IDs and cards",loc:"Main building",date:"2026-10-14",at:"office",desc:"Student ID found near the stairs.",hide:"Name, ID number, and photo"},
+{id:"LF-0038",name:"Set of keys with red tag",cat:"Keys",loc:"Parking area",date:"2026-10-12",at:"finder",desc:"Four keys on a ring with a red tag.",hide:"Number and type of keys"},
+{id:"LF-0037",name:"Grey hoodie",cat:"Clothing",loc:"Room 204",date:"2026-10-09",at:"office",desc:"Grey zip hoodie, size M."},
+{id:"LF-0036",name:"Scientific calculator",cat:"Books and supplies",loc:"Library",date:"2026-10-05",at:"office",desc:"Casio calculator with a name sticker on the back.",hide:"Name on the sticker"},
+{id:"LF-0035",name:"Brown wallet",cat:"Wallets",loc:"Canteen",date:"2026-09-28",at:"office",desc:"Small leather wallet.",hide:"Contents and cards inside"}
+];
+var $=function(i){return document.getElementById(i)},cat="";
+var locs=[];ITEMS.forEach(function(i){if(locs.indexOf(i.loc)<0)locs.push(i.loc)});locs.sort();
+locs.forEach(function(l){var o=document.createElement("option");o.value=l;o.textContent=l;$("loc").appendChild(o)});
+["l-cat","f-cat"].forEach(function(id){Object.keys(CATS).forEach(function(c){var o=document.createElement("option");o.textContent=c;$(id).appendChild(o)})});
+function chips(){var h="";["All"].concat(Object.keys(CATS)).forEach(function(c){var v=c==="All"?"":c;h+='<button class="chip" data-c="'+v+'" aria-pressed="'+(cat===v)+'">'+c+'</button>'});$("chips").innerHTML=h}
+$("chips").addEventListener("click",function(e){var b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;chips();render()});
+function fmt(d){return new Date(d).toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"})}
+function render(){
+ var q=$("q").value.trim().toLowerCase(),l=$("loc").value,w=+$("when").value,s=$("sort").value;
+ var r=ITEMS.filter(function(i){
+  if(cat&&i.cat!==cat)return false;if(l&&i.loc!==l)return false;
+  if(w&&(TODAY-new Date(i.date))/864e5>w)return false;
+  return !q||(i.name+" "+i.cat+" "+i.loc+" "+i.desc).toLowerCase().indexOf(q)>-1});
+ r.sort(function(a,b){return s==="new"?new Date(b.date)-new Date(a.date):new Date(a.date)-new Date(b.date)});
+ $("count").textContent=r.length+(r.length===1?" item":" items");
+ $("grid").innerHTML=r.length?r.map(function(i){var c=CATS[i.cat];
+  return '<button class="card" data-id="'+i.id+'"><div class="photo" style="--c:'+c[1]+'" aria-hidden="true">'+c[0]+'</div><h3>'+i.name+'</h3><div class="meta">'+i.loc+' · '+fmt(i.date)+'</div><span class="badge '+(i.at==="office"?"b-office":"b-finder")+'">'+(i.at==="office"?"At the office":"With the finder")+'</span></button>'}).join(""):
+  '<div class="empty"><strong>No matching items.</strong><br>Try fewer filters, or <a href="#report">report your lost item</a> so the office can watch for it.</div>';
+}
+["q","loc","when","sort"].forEach(function(id){$(id).addEventListener("input",render)});
+$("go").addEventListener("click",function(){render();$("found").scrollIntoView()});
+$("q").addEventListener("keydown",function(e){if(e.key==="Enter")$("go").click()});
+var dlg=$("dlg");
+$("grid").addEventListener("click",function(e){var b=e.target.closest(".card");if(!b)return;
+ var i=ITEMS.filter(function(x){return x.id===b.dataset.id})[0],c=CATS[i.cat];
+ $("dlgBody").innerHTML='<button class="x" aria-label="Close" id="cx">×</button><div class="photo" style="--c:'+c[1]+';border-radius:10px;height:90px" aria-hidden="true">'+c[0]+'</div><h3 style="font-size:24px;margin-top:14px">'+i.name+'</h3><div class="meta" style="padding:4px 0">'+i.id+' · '+i.cat+'<br>Found at '+i.loc+' on '+fmt(i.date)+'</div><p style="margin:10px 0 0">'+i.desc+'</p>'+
+ (i.hide?'<div class="hid"><strong>Hidden:</strong> '+i.hide+'. Describe it in your claim.</div>':'')+
+ '<label for="c-ans">How can you prove it’s yours?</label><textarea id="c-ans" placeholder="Describe details only the owner would know"></textarea>'+
+ '<div class="row"><div><label for="c-name">Your name</label><input id="c-name"></div><div><label for="c-contact">Phone or email</label><input id="c-contact"></div></div>'+
+ '<div class="err" id="c-err" role="alert"></div><button class="btn" id="c-send" data-id="'+i.id+'">Send claim to office</button><p class="note">Bring a valid ID when you pick it up.</p>';
+ dlg.showModal();$("cx").onclick=function(){dlg.close()}});
+dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+dlg.addEventListener("click",function(e){if(e.target.id!=="c-send")return;
+ var a=$("c-ans").value.trim(),n=$("c-name").value.trim(),c=$("c-contact").value.trim();
+ if(!a||!n||!c){$("c-err").textContent="Fill in your proof, name, and contact so the office can reach you.";return}
+ var i=ITEMS.filter(function(x){return x.id===e.target.dataset.id})[0];
+ mail("Claim for "+i.id+": "+i.name,"Item: "+i.name+" ("+i.id+")\nProof of ownership: "+a+"\nName: "+n+"\nContact: "+c);dlg.close()});
+function mail(sub,body){location.href="mailto:"+OFFICE_EMAIL+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body);
+ var t=$("toast");t.textContent="Opening your email app. Press send to finish.";t.style.display="block";setTimeout(function(){t.style.display="none"},4000)}
+function send(p,err,sub){var g=function(k){return $(p+"-"+k).value.trim()};
+ if(!g("item")||!g("loc")||(p==="l"&&(!g("name")||!g("contact")))){$(p+"-err").textContent=err;return}
+ $(p+"-err").textContent="";
+ var b="Item: "+g("item")+"\nCategory: "+$(p+"-cat").value+"\nDate: "+(g("date")||"not given")+"\nLocation: "+g("loc")+"\nDescription: "+(g("desc")||"none")+
+  (p==="f"?"\nItem is now: "+$("f-where").value:"")+"\nName: "+(g("name")||"anonymous")+"\nContact: "+(g("contact")||"none given");
+ mail(sub+g("item"),b)}
+$("l-send").onclick=function(){send("l","Add what you lost, where, your name, and a way to reach you.","Lost item: ")};
+$("f-send").onclick=function(){send("f","Add what you found and where you found it.","Found item: ")};
+chips();render();
+</script>
+</body>
+</html>
